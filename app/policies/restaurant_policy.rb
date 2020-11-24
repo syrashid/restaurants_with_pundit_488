@@ -3,9 +3,9 @@ class RestaurantPolicy < ApplicationPolicy
     def resolve
       # scope == Restaurant
       scope.all
-      #            👇 Restaurant attribute
+      #              👇 Restaurant attribute
       # scope.where(user: user)
-      #                  👆 Current User
+      #                    👆 Current User
     end
   end
 
@@ -20,10 +20,10 @@ class RestaurantPolicy < ApplicationPolicy
   def update?
     # The owner should be able to edit
     # current_user == @restaurant.user
-    user == record.user
+    user == record.user || user.admin?
   end
 
   def destroy?
-    update?
+    user == record.user
   end
 end
